@@ -4,9 +4,175 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simulador</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <source
+      src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"
+      type="text/javascript"
+    />
+    <title>Shopping</title>
   </head>
   <body>
-    <script async src="simulador.js"></script>
+    <div id="cart">
+      <h2>Your Shopping Cart</h2>
+      <ul class="cart-items"></ul>
+      <div class="total">
+        <div class="subtotalTotal">
+          Subtotal
+          <span>$0.00</span>
+        </div>
+        <div class="taxes">
+          Tax
+          <span>$0.00</span>
+        </div>
+        <div class="shipping">
+          Shipping
+          <span>$0.00</span>
+        </div>
+        <div class="finalTotal">
+          Total
+          <span>$0.00</span>
+        </div>
+        <a class="checkout"> Check Out </a>
+        <p class="error"></p>
+      </div>
+    </div>
+    <div class="wrap" id="wrap">
+      <header>
+        <a class="logo" href="#"> Shopping mall </a>
+        <a class="cart-link active" href="#menu">
+          <span class="cart-text fontawesome-shopping-cart">
+            <span>Cart</span>
+          </span>
+          <!-- Eliminar el display: none cuando se pueda mostrar/togglear el carrito -->
+          <span class="returnToShop" style="display: none">← Back</span>
+          <span class="cart-quantity empty">0</span>
+        </a>
+      </header>
+      <section class="shop">
+        <div
+          class="product"
+          style="
+            background-image: url('https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg');
+          "
+        >
+          <h1>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h1>
+          <p>
+            Your perfect pack for everyday use and walks in the forest. Stash
+            your laptop (up to 15 inches) in the padded sleeve, your everyday
+          </p>
+          <div class="button">
+            <div class="price">$29</div>
+            <a class="addtocart">
+              <div class="add">Add to Cart</div>
+              <div class="added">Added!</div>
+            </a>
+          </div>
+        </div>
+        <div
+          class="product"
+          style="
+            background-image: url('https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg');
+          "
+        >
+          <h1>Mens Casual Premium Slim Fit T-Shirts</h1>
+          <p>
+            Slim-fitting style, contrast raglan long sleeve, three-button henley
+            placket, light weight & soft fabric for breathable and comfortable
+            wearing.
+          </p>
+          <div class="button">
+            <div class="price">$18</div>
+            <a class="addtocart">
+              <div class="add">Add to Cart</div>
+              <div class="added">Added!</div>
+            </a>
+          </div>
+        </div>
+        <div
+          class="product"
+          style="
+            background-image: url('https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg');
+          "
+        >
+          <h1>Mens Cotton Jacket</h1>
+          <p>
+            Great outerwear jackets for Spring/Autumn/Winter, suitable for many
+            occasions, such as working, hiking, camping, mountain/rock climbing,
+            cycling, traveling or other outdoors.
+          </p>
+          <div class="button">
+            <div class="price">$16</div>
+            <a class="addtocart">
+              <div class="add">Add to Cart</div>
+              <div class="added">Added!</div>
+            </a>
+          </div>
+        </div>
+        <div
+          class="product"
+          style="
+            background-image: url('https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg');
+          "
+        >
+          <h1>
+          Gold & Silver Dragon Station Chain Bracelet
+          </h1>
+          <p>
+            From our Legends Collection, the Naga was inspired by the mythical
+            water dragon that protects the ocean's pearl.
+          </p>
+          <div class="button">
+            <div class="price">$25</div>
+            <a class="addtocart">
+              <div class="add">Add to Cart</div>
+              <div class="added">Added!</div>
+            </a>
+          </div>
+        </div>
+        <div
+          class="product"
+          style="
+            background-image: url('https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg');
+          "
+        >
+          <h1>Solid Gold Petite Micropave</h1>
+          <p>
+            Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.
+          </p>
+          <div class="button">
+            <div class="price">$2</div>
+            <a class="addtocart">
+              <div class="add">Add to Cart</div>
+              <div class="added">Added!</div>
+            </a>
+          </div>
+        </div>
+        <div
+          class="product"
+          style="
+            background-image: url('https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg');
+          "
+        >
+          <h1>Pierced Owl Rose Gold Plated Stainless Steel Double</h1>
+          <p>
+            Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel
+          </p>
+          <div class="button">
+            <div class="price">$25</div>
+            <a class="addtocart">
+              <div class="add">Add to Cart</div>
+              <div class="added">Added!</div>
+            </a>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <p>
+          <!-- https://codepen.io/heyitsolivia/pen/kOpQqw -->
+        </p>
+      </footer>
+    </div>
+    <!-- <script async src="simulador.js"></script> -->
   </body>
 </html>

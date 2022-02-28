@@ -22,12 +22,12 @@ class ShoppingCartProduct {
     this.amount = amount;
   }
 
-  get totalPrice() {
+  get finalPrice() {
     return (this.product.price * this.amount).toFixed(2);
   }
 
   show() {
-    return `${this.product.name}: ${this.amount} u. x ${this.product.price}${Config.currencySymbol} = ${this.totalPrice}${Config.currencySymbol}`;  }
+    return `${this.product.name}: ${this.amount} u. x ${this.product.price}${Config.currencySymbol} = ${this.finalPrice}${Config.currencySymbol}`;  }
 }
 
 class ShoppinigCart {
@@ -53,7 +53,7 @@ class ShoppinigCart {
       } else {
         this.products[index] = shoppingCartProduct;
       }
-      return `${product.name} (${product.price}${Config.currencySymbol} x ${shoppingCartProduct.amount} = ${shoppingCartProduct.totalPrice}${Config.currencySymbol}) agregado!`;
+      return `${product.name} (${product.price}${Config.currencySymbol} x ${shoppingCartProduct.amount} = ${shoppingCartProduct.finalPrice}${Config.currencySymbol}) agregado!`;
     } else {
       return `No hay stock suficiente de ${product.name}. Stock actual: ${product.stock}`;
     }
@@ -62,7 +62,7 @@ class ShoppinigCart {
   show() {
     let total = 0;
     this.products.forEach((p) => {      
-      total += Number(p.totalPrice);
+      total += Number(p.finalPrice);
     });    
     return `${this.products
       .map((p) => p.show())
