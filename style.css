@@ -6,7 +6,6 @@
   font-family: "FontAwesome", sans-serif;
 }
 
-
 /* Variables
  * ============================ */
 /* Body
@@ -56,7 +55,8 @@ header a.cart-link {
 header a.cart-link:hover {
   color: #7cbae6;
 }
-header a.cart-link:active, header a.cart-link .active {
+header a.cart-link:active,
+header a.cart-link .active {
   color: #9cdaf0;
 }
 header span.cart-text:before {
@@ -181,7 +181,8 @@ footer p {
   opacity: 0;
   transition: opacity 200ms ease-out;
 }
-.product:hover > *, .product .active {
+.product:hover > *,
+.product .active {
   opacity: 1;
 }
 .product h1 {
@@ -209,7 +210,7 @@ footer p {
   z-index: 1;
   top: 2px;
   display: block;
-  width: 50px;
+
   height: 46px;
   border-right: 1px solid #9cdaf0;
   border-radius: 2px 0 0 2px;
@@ -420,13 +421,21 @@ a.checkout.active {
   }
 }
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
-  10%, 30%, 50%, 70%, 90% {
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
     transform: translateX(-5px);
   }
-  20%, 40%, 60%, 80% {
+  20%,
+  40%,
+  60%,
+  80% {
     transform: translateX(5px);
   }
 }
