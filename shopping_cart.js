@@ -5,7 +5,8 @@ class Config {
 }
 
 class Product {
-  constructor(prodName, prodPrice, prodDescription, prodStock, prodImage) {
+  constructor(id, prodName, prodPrice, prodDescription, prodStock, prodImage) {
+    this.id = id;
     this.name = prodName;
     this.price = prodPrice;
     this.description = prodDescription;
@@ -25,7 +26,7 @@ class ShoppingCartProduct {
   }
 
   get finalPrice() {
-    return (this.product.price * this.amount).toFixed(2);
+    return this.product.price * this.amount;
   }
 
   show() {
@@ -39,16 +40,14 @@ class ShoppinigCart {
   }
 
   addProduct(product, amount) {
-    const index = this.products.findIndex((pc) => pc.product === product);
-
+    const index = this.products.findIndex((pc) => pc.product.id === product.id);
     let shoppingCartProduct;
     if (index === -1) {
       shoppingCartProduct = new ShoppingCartProduct(product, 0);
     } else {
       shoppingCartProduct = this.products[index];
     }
-
-    if (product.stock >= shoppingCartProduct.amount + amount) {
+    if (product.stock >= amount) {
       shoppingCartProduct.amount += amount;
       product.stock -= amount;
       if (index === -1) {
@@ -60,6 +59,14 @@ class ShoppinigCart {
     } else {
       return `No hay stock suficiente de ${product.name}. Stock actual: ${product.stock}`;
     }
+  }
+
+  getTotal() {
+    let total = 0;
+    this.products.forEach((pc) => {
+      total += pc.finalPrice;
+    });
+    return total.toFixed(2);
   }
 
   show() {
@@ -76,9 +83,9 @@ class ShoppinigCart {
 const products = [];
 
 /** INIT PRODUCTS ARRAY **/
-// prodName, prodPrice, prodDescription, prodStock, prodImage
 products.push(
   new Product(
+    uuid.v4(),
     "Logitech G Series G733",
     1232,
     "¡Experimentá la adrenalina de sumergirte en la escena de otra manera!",
@@ -89,6 +96,7 @@ products.push(
 
 products.push(
   new Product(
+    uuid.v4(),
     "Gigabyte Geforce Rtx 3090",
     2300,
     "Nvidia es el fabricante líder de placas de video; su calidad asegura una experiencia positiva en el desarrollo del motor gráfico de tu computadora.",
@@ -99,16 +107,18 @@ products.push(
 
 products.push(
   new Product(
+    uuid.v4(),
     "Redragon Shiva K512",
     321,
     "Disfrutá de tus partidas en otro nivel con Redragon",
-    3,
+    0,
     "https://http2.mlstatic.com/D_NQ_NP_2X_852452-MLA47614354444_092021-F.webp"
   )
 );
 
 products.push(
   new Product(
+    uuid.v4(),
     "Pendrive SanDisk 16GB",
     600,
     "Este pendrive te permitirá almacenar hasta 16 GB para que puedas guardar gran cantidad de información, imágenes u otros tipos de archivos.",
@@ -149,8 +159,13 @@ function setProductsOnDOM() {
     const link = document.createElement("a");
     link.setAttribute("class", "addtocart");
     const add = document.createElement("div");
-    add.setAttribute("class", "add");
+    const classesAdd = `add ${prod.stock > 0 ? "" : "disabled-add-button"}`;
+    add.setAttribute("class", classesAdd);
     add.innerText = "Add to Cart";
+    add.setAttribute("id", prod.id);
+    if (prod.stock > 0) {
+      add.addEventListener("click", onClickAddProductToCart, false);
+    }
     const added = document.createElement("div");
     added.setAttribute("class", "added");
     added.innerText = "Add to Cart";
@@ -164,6 +179,44 @@ function setProductsOnDOM() {
 
     shopElement.appendChild(productTemplate);
   });
+}
+
+function onClickAddProductToCart(e) {
+  // Get product from array
+  const product = products.find((p) => p.id === e.target.id);
+  if (product || product.stock > 0) {
+    // Add product to cart!
+    shoppingCart.addProduct(product, 1);
+    // Update cart
+    updateCart();
+  }
+  // TODO: Handle product not found or with no stock
+}
+
+function updateCart() {
+  // Update total
+  const total = document.querySelector("#cart > div > div > span");
+  total.innerText = `${shoppingCart.getTotal()}${Config.currencySymbol}`;
+
+  // Replace cart
+  const newCart = document.createElement("ul");
+  newCart.setAttribute("class", "cart-items");
+  shoppingCart.products.forEach((p) => {
+    const template =
+      '<li><div class="cart-product">\r\n  <input class="quantity" value="1">\r\n  </div><div class="cart-description">\r\n  <h3></h3>\r\n  <span class="subtotal"></span>\r\n  </div></li>';
+    var parser = new DOMParser();
+    var wrapper = parser.parseFromString(template, "text/html");
+    wrapper.getElementsByClassName("quantity")[0].value = p.amount;
+    wrapper
+      .getElementsByClassName("cart-description")[0]
+      .getElementsByTagName("h3")[0].innerText = p.product.name;
+    wrapper.getElementsByClassName(
+      "subtotal"
+    )[0].innerText = `${p.finalPrice}${Config.currencySymbol}`;
+    newCart.appendChild(wrapper.getElementsByTagName("li")[0]);
+  });
+  const oldCart = document.querySelector("#cart > ul");
+  oldCart.parentNode.replaceChild(newCart, oldCart);
 }
 
 const main = function () {
